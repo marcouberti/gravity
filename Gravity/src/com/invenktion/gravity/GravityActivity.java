@@ -7,6 +7,7 @@ import com.invenktion.gravity.bean.SpaceObject;
 import com.invenktion.gravity.core.ApplicationManager;
 import com.invenktion.gravity.core.UniverseManager;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -52,11 +53,19 @@ public class GravityActivity extends Activity {
     		myThreadRun = b;
    		}
 
-		
+		long prets = 0;
+		long ts = 0;
+		@SuppressLint("WrongCall")
 		public void run() {
-			// TODO Auto-generated method stub
-			//super.run();
 			while (myThreadRun) {
+				
+				ts = System.currentTimeMillis();
+				if(prets != 0 && (ts - prets) < 16) {//60fps
+					continue;
+				}else{
+					prets = ts;
+				}
+				
                 Canvas c = null;
                 try {
                     c = myThreadSurfaceHolder.lockCanvas(null);
@@ -254,13 +263,14 @@ public class GravityActivity extends Activity {
    
         UniverseManager.initialize();
         
-        for(int i=0; i<500; i++) {
+        for(int i=0; i<200; i++) {
 	        SpaceObject s1 = new SpaceObject(getApplicationContext(), R.drawable.bomb);
 	        s1.x = (int)(Math.random()*ApplicationManager.SCREEN_H);
 	        s1.y = (int)(Math.random()*ApplicationManager.SCREEN_W);
 	        s1.velx = 0;
 	        s1.vely = 0;
-	        s1.radius = 2+(float)(Math.random()*3);
+	        s1.radius = 4+(float)(Math.random()*3);
+	        s1.setColor(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
 	        UniverseManager.queueSpaceObject(s1);
         }
         

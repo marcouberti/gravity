@@ -42,7 +42,6 @@ public class SpaceObject extends UniverseObject{
 		// rotate the canvas on center of the text to draw
 		canvas.save();
 		canvas.rotate(rotation, x, y);
-
 		canvas.drawCircle(x, y, radius, paint);
 		canvas.drawLine(x-radius, y, x, y-(radius*4), paint);
 		canvas.drawLine(x+radius, y, x, y-(radius*4), paint);
