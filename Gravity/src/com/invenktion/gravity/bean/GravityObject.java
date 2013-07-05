@@ -13,13 +13,14 @@ import android.graphics.Paint.Style;
 
 public class GravityObject extends UniverseObject{
 	public float power;
+	public int color;
 	
 	public GravityObject() {
 		paint = new Paint();//Paint.ANTI_ALIAS_FLAG
 		paint.setColor(Color.GREEN);
 		paint.setStyle(Paint.Style.FILL);
 		//paint.setStrokeWidth(10);
-		paint.setMaskFilter(new BlurMaskFilter(15, Blur.OUTER));
+		//paint.setMaskFilter(new BlurMaskFilter(15, Blur.OUTER));
 	}
 	
 	public float computeAttraction(Point p) {
@@ -27,6 +28,15 @@ public class GravityObject extends UniverseObject{
 		return (float)(power*(1/Math.pow(distance, 2)));
 	}
 	
+	
+	public int getColor() {
+		return color;
+	}
+
+	public void setColor(int color) {
+		this.color = color;
+		paint.setColor(color);
+	}
 
 	@Override
 	public void draw(Canvas canvas) {

@@ -134,10 +134,7 @@ public class GravityActivity extends Activity {
 			
 		}
 
-		
 		public boolean onTouchEvent(MotionEvent event) {
-			// TODO Auto-generated method stub
-			//return super.onTouchEvent(event);
 			int action = event.getAction();
 			if (action==MotionEvent.ACTION_MOVE){
 				float x = event.getX();
@@ -161,20 +158,7 @@ public class GravityActivity extends Activity {
 				}
 			else if (action==MotionEvent.ACTION_UP){
 				drawing = false;
-				
 				UniverseManager.repulsorActive = false;
-				/*
-				//Aggiungo il GO all'universo
-				GravityObject go = new GravityObject();
-				go.x = initX;
-				go.y = initY;
-				go.velx= 0;
-				go.vely =0;
-				go.power = radius;
-				
-				UniverseManager.queueGravityObject(go);
-				*/
-				
 			}
 			
 			return true;
@@ -263,52 +247,35 @@ public class GravityActivity extends Activity {
    
         UniverseManager.initialize();
         
-        for(int i=0; i<200; i++) {
+        int[] coloriLivello = new int[]{Color.RED, Color.YELLOW, Color.GREEN};
+        final int NUM_COLORS = coloriLivello.length;
+        final int NUM_OBJECTS = 200;
+        
+        for(int i=0; i<NUM_OBJECTS; i++) {
 	        SpaceObject s1 = new SpaceObject(getApplicationContext(), R.drawable.bomb);
 	        s1.x = (int)(Math.random()*ApplicationManager.SCREEN_H);
 	        s1.y = (int)(Math.random()*ApplicationManager.SCREEN_W);
 	        s1.velx = 0;
 	        s1.vely = 0;
 	        s1.radius = 4+(float)(Math.random()*3);
-	        s1.setColor(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+	        s1.setColor(coloriLivello[(int)(Math.random()*NUM_COLORS)]);
 	        UniverseManager.queueSpaceObject(s1);
         }
         
-        //Aggiungo un oggetto gravitazionale
-        GravityObject go = new GravityObject();
-        go.power = 100;
-        go.x = 200;
-        go.y = 300;
-        go.radius = 5;
-        go.velx = 0;
-        go.vely = 0;
-        
-        UniverseManager.queueGravityObject(go);
-        
-        //Aggiungo un ALTRO oggetto gravitazionale
-        GravityObject go2 = new GravityObject();
-        go2.power = 50;
-        go2.x = 300;
-        go2.y = 600;
-        go2.radius = 7;
-        go2.velx = 0;
-        go2.vely = 0;
-        
-        UniverseManager.queueGravityObject(go2);
-        
-        //Aggiungo l'obiettivo
-        /*
-        NonAttractedObject s1 = new NonAttractedObject(getApplicationContext(), R.drawable.goal);
-        s1.velx = 0;
-        s1.vely = 0;
-        s1.radius = 50;
-        s1.x = ApplicationManager.SCREEN_H-s1.radius;
-        s1.y = ApplicationManager.SCREEN_W-s1.radius;
-        UniverseManager.queueNonAttractedObject(s1);
-        */
-        
-        //UniverseManager.queueGravityObject(g1);
-        
+        for(int i=0; i<NUM_COLORS; i++) {
+        	//Aggiungo un oggetto gravitazionale
+            GravityObject go = new GravityObject();
+            go.power = 5;
+            go.x =  (int)(Math.random()*ApplicationManager.SCREEN_H);
+            go.y = (int)(Math.random()*ApplicationManager.SCREEN_W);
+            go.radius = 5;
+            go.velx = 0;
+            go.vely = 0;
+            go.setColor(coloriLivello[i]);
+            
+            UniverseManager.queueGravityObject(go);
+        }
+      
         FrameLayout frameLayout = new FrameLayout(getApplicationContext());
         MySurfaceView mySurfaceView = new MySurfaceView(getApplicationContext());
         //LinearLayout ll = new LinearLayout(getApplicationContext());
